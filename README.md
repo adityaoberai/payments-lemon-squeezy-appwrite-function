@@ -90,15 +90,6 @@ The endpoint where your Appwrite server is located. If not provided, it defaults
 | Required     | No                             |
 | Sample Value | `https://cloud.appwrite.io/v1` |
 
-### APPWRITE_FUNCTION_PROJECT_ID
-
-Your Appwrite project ID.
-
-| Question     | Answer      |
-| ------------ | ----------- |
-| Required     | Yes         |
-| Sample Value | `6ds8as...` |
-
 ### APPWRITE_DATABASE_ID
 
 The ID of the database to store the orders.
