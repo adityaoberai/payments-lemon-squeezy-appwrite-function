@@ -2,7 +2,6 @@ import {
   lemonSqueezySetup,
   createCheckout,
 } from '@lemonsqueezy/lemonsqueezy.js';
-import { log } from 'console';
 import crypto from 'crypto';
 
 class LemonSqueezyService {
@@ -59,7 +58,7 @@ class LemonSqueezyService {
         throw new Error('Invalid signature.');
       }
 
-      log('Webhook signature is valid.');
+      context.log('Webhook signature is valid.');
       return true;
     } catch (err) {
       context.error(err);
