@@ -19,10 +19,10 @@ class AppwriteService {
     const databaseId = process.env.APPWRITE_DATABASE_ID ?? 'orders';
     const collectionId = process.env.APPWRITE_COLLECTION_ID ?? 'orders';
 
-    if (await this.doesOrdersDatabaseExist(databaseId) == true) {
+    if ((await this.doesOrdersDatabaseExist(databaseId)) == true) {
       return;
     }
-  
+
     await this.setupOrdersDatabase(databaseId, collectionId);
   }
 

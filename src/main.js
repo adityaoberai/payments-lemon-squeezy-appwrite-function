@@ -10,7 +10,7 @@ export default async (context) => {
     'LEMON_SQUEEZY_WEBHOOK_SECRET',
     'APPWRITE_API_KEY',
     'LEMON_SQUEEZY_STORE_ID',
-    'LEMON_SQUEEZY_VARIANT_ID'
+    'LEMON_SQUEEZY_VARIANT_ID',
   ]);
 
   const databaseId = process.env.APPWRITE_DATABASE_ID ?? 'orders';
@@ -35,19 +35,23 @@ export default async (context) => {
   switch (req.path) {
     case '/checkout':
       const fallbackUrl = req.scheme + '://' + req.headers['host'] + '/';
-
       const failureUrl = req.body?.failureUrl ?? fallbackUrl;
 
-      var userEmail = req.body?.email;
-      var userName = req.body?.name;
+      const userId = req.headers['x-appwrite-user-id'];
+      let userEmail = req.body?.email;
+      let userName = req.body?.name;
 
-      var userId = req.headers['x-appwrite-user-id'];
       if (!userId) {
         error('User ID not found in request.');
         return res.redirect(failureUrl, 303);
       }
 
-      var checkout = await lemonsqueezy.createCheckout(context, userId, userEmail, userName);
+      const checkout = await lemonsqueezy.createCheckout(
+        context,
+        userId,
+        userEmail,
+        userName
+      );
       if (!checkout) {
         error('Failed to create Lemon Squeezy checkout.');
         return res.redirect(failureUrl, 303);
@@ -60,24 +64,28 @@ export default async (context) => {
       return res.redirect(checkout.data.data.attributes.url, 303);
 
     case '/webhook':
-      var validRequest = lemonsqueezy.validateWebhook(context);
+      let validRequest = lemonsqueezy.validateWebhook(context);
       if (!validRequest) {
         return res.json({ success: false }, 401);
       }
 
-      log("Webhook request is valid.");
-
-      var order = req.body;
+      const order = req.body;
 
       log(order);
 
-      var userId = order.meta.custom_data.user_id;
-      var orderId = order.data.id;
+      const orderUserId = order.meta.custom_data.user_id;
+      const orderId = order.data.id;
 
-      await appwrite.createOrder(databaseId, collectionId, userId, orderId);
-      log(
-        `Created order document for user ${userId} with Lemon Squeezy order ID ${orderId}`
+      await appwrite.createOrder(
+        databaseId,
+        collectionId,
+        orderUserId,
+        orderId
       );
+      log(
+        `Created order document for user ${orderUserId} with Lemon Squeezy order ID ${orderId}`
+      );
+
       return res.json({ success: true });
 
     default:

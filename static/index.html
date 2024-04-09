@@ -25,8 +25,10 @@
             class="body-text-1 u-normal u-margin-block-start-8"
             style="max-width: 50rem"
           >
-            Use this demo to create a Lemon Squeezy payment. Once paid, document is
-            created in Appwrite Database. You can then use this to give access to video courses, SaaS payments, or any other digital goods and services.
+            Use this demo to create a Lemon Squeezy payment. Once paid, a
+            document is created in Appwrite Database. You can then use this to
+            give access to video courses, SaaS payments, or any other digital
+            goods and services.
           </p>
         </div>
       </div>
@@ -108,12 +110,17 @@
               <div class="u-flex-vertical u-gap-16 u-margin-block-start-32">
                 <p class="heading-level-4">Create a checkout</p>
                 <div class="u-flex u-gap-16 u-cross-center">
-                  <input type="text" class="userName" placeholder="Enter full name">
-                  <input type="email" class="userEmail" placeholder="Enter email address">
-                  <button
-                    x-on:click="order()"
-                    class="button"
-                  >
+                  <input
+                    type="text"
+                    class="name"
+                    placeholder="Enter full name"
+                  />
+                  <input
+                    type="email"
+                    class="email"
+                    placeholder="Enter email address"
+                  />
+                  <button x-on:click="order()" class="button">
                     <span class="text">Create checkout with Lemon Squeezy</span>
                   </button>
                   <button
@@ -141,13 +148,20 @@
       const databases = new Databases(client);
 
       async function order() {
+        const email = document.querySelector('.email').value;
+        const name = document.querySelector('.name').value;
+
+        if (!email || !name) {
+          alert('Please enter your name and email address');
+          return;
+        }
+
         const execution = await functions.createExecution(
           '{{APPWRITE_FUNCTION_ID}}',
           JSON.stringify({
             failureUrl: window.location.href,
-            successUrl: window.location.href,
-            email: document.querySelector('.userEmail').value,
-            name: document.querySelector('.userName').value
+            email,
+            name,
           }),
           false,
           '/checkout',

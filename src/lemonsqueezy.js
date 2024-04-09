@@ -1,4 +1,8 @@
-import { lemonSqueezySetup, createCheckout } from '@lemonsqueezy/lemonsqueezy.js';
+import {
+  lemonSqueezySetup,
+  createCheckout,
+} from '@lemonsqueezy/lemonsqueezy.js';
+import { log } from 'console';
 import crypto from 'crypto';
 
 class LemonSqueezyService {
@@ -15,7 +19,8 @@ class LemonSqueezyService {
       const newCheckout = {
         productOptions: {
           name: 'Test Product',
-          description: 'A product created to test Lemon Squeezy payments in Appwrite Functions.'
+          description:
+            'A product created to test Lemon Squeezy payments in Appwrite Functions.',
         },
         checkoutOptions: {
           embed: true,
@@ -26,15 +31,14 @@ class LemonSqueezyService {
           email: userEmail ?? 'test@user.xyz',
           name: userName ?? 'Test User',
           custom: {
-            'user_id': userId
-          }
+            user_id: userId,
+          },
         },
         expiresAt: null,
         preview: true,
         testMode: true,
       };
       return await createCheckout(storeId, variantId, newCheckout);
-      
     } catch (err) {
       context.error(err);
       return null;
@@ -45,13 +49,17 @@ class LemonSqueezyService {
     try {
       const secret = process.env.LEMON_SQUEEZY_WEBHOOK_SECRET;
       const hmac = crypto.createHmac('sha256', secret);
-      const digest = Buffer.from(hmac.update(context.req.bodyRaw).digest('hex'), 'utf8');
-      const signature = Buffer.from(context.req.headers['x-signature'] , 'utf8');
+      const digest = Buffer.from(
+        hmac.update(context.req.bodyRaw).digest('hex'),
+        'utf8'
+      );
+      const signature = Buffer.from(context.req.headers['x-signature'], 'utf8');
 
       if (!crypto.timingSafeEqual(digest, signature)) {
-          throw new Error('Invalid signature.');
+        throw new Error('Invalid signature.');
       }
 
+      log('Webhook signature is valid.');
       return true;
     } catch (err) {
       context.error(err);

@@ -36,9 +36,9 @@ This endpoint is a webhook that handles Lemon Squeezy event `order_created`. It 
 
 **Parameters**
 
-| Name        | Description                         | Location | Type   | Sample Value                                                                        |
-| ----------- | ----------------------------------- | -------- | ------ | ----------------------------------------------------------------------------------- |
-| None        | Webhook payload from Lemon Squeezy. | Body     | Object | [See Lemon Squeezy docs](https://docs.lemonsqueezy.com/api/orders#the-order-object) |
+| Name        | Description                         | Location | Type   | Sample Value                                                                                                                    |
+| ----------- | ----------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| None        | Webhook payload from Lemon Squeezy. | Body     | Object | [See Lemon Squeezy docs](https://docs.lemonsqueezy.com/api/orders#the-order-object)                                             |
 | x-signature | Signature from Lemon Squeezy.       | Headers  | String | [See Lemon Squeezy docs](https://docs.lemonsqueezy.com/guides/developer-guide/webhooks#signing-and-validating-webhook-requests) |
 
 **Response**
@@ -75,10 +75,10 @@ Sample `401` Response:
 
 Your Appwrite project's API key.
 
-| Question      | Answer                                                                                                                                    |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Required      | Yes                                                                                                                                       |
-| Sample Value  | `083d341ee48...`                                                                                                                          |
+| Question      | Answer                                                                                                                                                          |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Required      | Yes                                                                                                                                                             |
+| Sample Value  | `083d341ee48...`                                                                                                                                                |
 | Documentation | [Appwrite: Create an API key](https://appwrite.io/docs/advanced/platform/api-keys#:~:text=To%20create%20a%20new%20API,scope%20to%20grant%20your%20application.) |
 
 ### APPWRITE_ENDPOINT
@@ -122,28 +122,28 @@ API key for sending requests to the Lemon Squeezy API.
 
 Secret used to validate the Lemon Squuezy Webhook signature.
 
-| Question      | Answer                                               |
-| ------------- | ---------------------------------------------------- |
-| Required      | Yes                                                  |
-| Sample Value  | `abcd...`                                            |
+| Question      | Answer                                                                                                      |
+| ------------- | ----------------------------------------------------------------------------------------------------------- |
+| Required      | Yes                                                                                                         |
+| Sample Value  | `abcd...`                                                                                                   |
 | Documentation | [Lemon Squeezy: Webhooks](https://docs.lemonsqueezy.com/guides/developer-guide/webhooks#from-the-dashboard) |
 
 ### LEMON_SQUEEZY_STORE_ID
 
 Store ID required to create a checkout using the Lemon Squeezy API.
 
-| Question      | Answer                                                                      |
-| ------------- | --------------------------------------------------------------------------- |
-| Required      | Yes                                                                         |
-| Sample Value  | `123456`                                                                    |
+| Question      | Answer                                                                                                                           |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Required      | Yes                                                                                                                              |
+| Sample Value  | `123456`                                                                                                                         |
 | Documentation | [Lemon Squeezy: Checkouts](https://docs.lemonsqueezy.com/guides/developer-guide/taking-payments#creating-checkouts-with-the-api) |
 
 ### LEMON_SQUEEZY_VARIANT_ID
 
 Variant ID of a product required to create a checkout using the Lemon Squeezy API.
 
-| Question      | Answer                                                                      |
-| ------------- | --------------------------------------------------------------------------- |
-| Required      | Yes                                                                         |
-| Sample Value  | `123456`                                                                    |
+| Question      | Answer                                                                                                                           |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Required      | Yes                                                                                                                              |
+| Sample Value  | `123456`                                                                                                                         |
 | Documentation | [Lemon Squeezy: Checkouts](https://docs.lemonsqueezy.com/guides/developer-guide/taking-payments#creating-checkouts-with-the-api) |
